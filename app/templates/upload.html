@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form action="" method="post" name="hform" enctype="multipart/form-data">
+	{{ form.hidden_tag() }}
+	<p>
+		Upload a file
+		{{form.fileName()}}
+	</p>
+	<p>
+		{{form.submit}}
+	</p>
+</form>
+<ul>
+{% for file in files %}
+<form action=""></form>
+	<li>
+		{{file.filelink}} <a href="{{ url_for('delete_file', nickname = g.user.nickname, file_id = file.id) }}">Delete File</a> <a href="{{ url_for('progress', nickname = g.user.nickname, file_id = file.id) }}">Graph</a>
+	</li>
+{% endfor %}
+</ul>
+{% endblock %}

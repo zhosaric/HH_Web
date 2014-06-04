@@ -1,0 +1,32 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - PM</title>
+    {% else %}
+    <title>Poker Manager</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Poker Manager: 
+    <a href="/index">Home</a>
+	{% if g.user.is_authenticated() %} <!-- Check for valid user -->
+	|	<a href="{{ url_for('user', nickname = g.user.nickname) }}">Your Profile</a>
+	|	<a href="{{ url_for('logout') }}">Logout</a>
+    |   <a href="{{ url_for('files', nickname = g.user.nickname) }}">Files</a>
+    {% else %}
+    |   <a href="{{ url_for('login') }}">Login</a>
+	{% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+    {% for message in messages %}
+    	<li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

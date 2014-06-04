@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/underscore-min.js') }}"></script>
+<p>This is my new chart!</p>
+<div id="myGraph" width="100%" height="400px"></div>
+<script>
+$(function () { 
+    $('#myGraph').highcharts({
+        title: {
+            text: 'Profits for Session: {{current_file}}'
+        },
+        xAxis: {
+
+        },
+        yAxis: {
+            title: {
+                text: 'Profit/Loss'
+            }
+        },
+        series: [{
+            name: '{{current_file}}',
+            title: 'Hand Number:',
+            data: {{data}}
+        }]
+    });
+});
+</script>
+<ul>
+{% for file in files %}
+<form action=""></form>
+	<li>
+		{{file.filelink}} <a href="{{ url_for('progress', nickname = g.user.nickname, file_id = file.id) }}">Graph</a>
+	</li>
+{% endfor %}
+</ul>
+<p></p>
+<p>
+
+{% endblock %}
